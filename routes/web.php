@@ -13,6 +13,7 @@
 
 #new app route
 Route::get('/', 'MortCalcController@index');
+Route::get('/', 'MortCalcController@process');
 
 #new routes
 Route::get('/search', 'ProverbController@search');

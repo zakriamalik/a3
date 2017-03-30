@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class MortCalcController extends Controller
 {
@@ -20,14 +21,14 @@ class MortCalcController extends Controller
   * GET
   * /search
   */
-  public function search(Request $request) {
+  public function process (Request $request) {
       # ======== Temporary code to explore $request ==========
-
+      #dd($request);
       # See all the properties and methods available in the $request object
       #dump($request);
 
       # See just the form data from the $request object
-      #dump($request->all());
+      dump($request->all());
 
       # See just the form data for a specific input, in this case a text input
       #dump($request->input('loan'));
@@ -48,12 +49,58 @@ class MortCalcController extends Controller
       # ======== End exploration of $request ==========
 
       # Return the view with some placeholder data we'll flesh out in a later step
+      #$interestRate = $request->input('interestRate', null);
+      #{{ dd(get_defined_vars()) }};
+      #$errors=0;
+      #if($_GET) {
+      $this->validate($request,[
+        'loan' => 'required'
+      ]);
+      #return redirect('/');
+      #}
 
-      $loan = $request->input('loan', null);
-      $interestRate = $request->input('interestRate', null);
+
+      #if(count($errors)>0) {
+        #return redirect('/');
+      #}
+      #else {
+
+
+
+      #get loan data from the form using request and format/calculate for display
+      $loan=number_format(floatval($request->input('loan', null)), 2, '.', ',');
+      $interestRate=Round($request->input('interestRate', null),3);
+      $interestRateMonthly = Round($interestRate/12,3);
+      $interestType=$request->Input('interestType');
+      $loanDuration=$request->input('loanDuration');
+      $loanMonths=$loanDuration*12;
+
+      #Logic: Formulae & Calculations used to determine mortage payments
+      if($interestRate>0 && $loanDuration>0 && $loan>0) {
+      		#$interestRateMonthly = ($interestRate/100)/12;
+      		#$timePeriodMonths = $timePeriodYears*12;
+      		$monthlyPayment = $loan*((($interestRate/100)/12)*(1 + (($interestRate/100)/12))**$loanMonths)/(((1 + (($interestRate/100)/12))**$loanMonths) - 1);
+          $monthlyPayment=number_format(floatval($monthlyPayment*1000), 2, '.', ',');
+          #Reference: Learned and leveraged arithematic functions used at this website: http://php.net/manual/en/language.operators.arithmetic.php
+          #Reference: Obatined Mortage Loan Payment formualae from this website: https://www.mtgprofessor.com/formulas.htm
+          #Mortage Payment Formula: P = L[c(1 + c)^n]/[(1 + c)^n - 1]
+      		#Where: L = Loan amount, c=monthly interest rate=Annual Interest Rate/12, P = Monthly payment, n = Month when the balance is paid in full, B = Remaining Balance
+      	}
+        else {
+          $monthlyPayment=0;
+        }
 
       return view('index')->with([
-          'loan'=> $loan]);
+          'loanDisplay'=>$loan,
+          'interestRateDisplay'=>$interestRate,
+          'interestRateMonthlyDisplay'=>$interestRateMonthly,
+          'interestTypeDisplay'=>$interestType,
+          'loanDurationDisplay'=>$loanDuration,
+          'loanMonths'=>$loanMonths,
+          'monthlyPaymentDisplay'=>$monthlyPayment
+        ]);
+      #}
+
   }
 
 }
