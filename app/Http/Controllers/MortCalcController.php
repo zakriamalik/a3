@@ -54,7 +54,8 @@ class MortCalcController extends Controller
       #$errors=0;
       #if($_GET) {
       $this->validate($request,[
-        'loan' => 'required'
+        'loan' => 'required',
+        'interestRate' => 'required'
       ]);
       #return redirect('/');
       #}

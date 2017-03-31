@@ -15,7 +15,7 @@
   <body>
     <h2>Mortgage Payment Calculator</h2>
     <!--start of form -->
-    <Form method='GET' action='/index.php'>
+    <Form method='GET' action='/process'>
           <!--text input box for loan amount entry -->
           <label for='loan'>Loan Amount:</label>
           <input type='number' step='0.01' min='1' name='loan' value='{{ $loan or '' }}'><br/>
@@ -26,8 +26,8 @@
 
           <!--option radio buttons for type of interest rate -->
           <b>Interest Type:</b>
-          <label><input type='radio' name='interestType' value='fixed' {{ ($interestType='Fixed') ? 'CHECKED' : '' }}> Fixed</label>
-          <label><input type='radio' name='interestType' value='variable' {{ ($interestType='Variable') ? 'CHECKED' : '' }}> Variable</label><br/>
+          <label><input type='radio' name='interestType' value='fixed' {{ old($interestType='fixed') ? 'CHECKED' : '' }}> Fixed</label>
+          <label><input type='radio' name='interestType' value='variable' {{ old($interestType='variable') ? 'CHECKED' : '' }}> Variable</label><br/>
 
           <!--select downdown for duration of loan in years -->
           <label for='loanDuration'>Select loan duration</label>
