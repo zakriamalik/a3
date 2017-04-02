@@ -28,7 +28,7 @@ class MortCalcController extends Controller
       #dump($request);
 
       # See just the form data from the $request object
-      dump($request->all());
+      #dump($request->all());
 
       # See just the form data for a specific input, in this case a text input
       #dump($request->input('loan'));
@@ -53,20 +53,36 @@ class MortCalcController extends Controller
       #{{ dd(get_defined_vars()) }};
       #$errors=0;
       #if($_GET) {
-      $this->validate($request,[
-        'loan' => 'required',
-        'interestRate' => 'required'
+
+
+        $this->validate($request,[
+        'loan' => 'required|numeric',
+        'interestRate' => 'required|numeric',
+        'interestType' => 'required|present',
+        'loanDuration' => 'required|not_in:0'
       ]);
+      #eturn redirect('/');
+      #$old = session()->getOldInput();
+
+      #$request->flash();
+      #return redirect()->back();
+
+      # return redirect()->route('process')->withInput();
       #return redirect('/');
+      #return redirect()->back();
+      #return redirect(\URL::previous());
+      #if($this->fails())
+      #return redirect('/')->withErrors($this)->withInput(old('loan'));
+      #              ->withErrors($errors, $this->errorBag());
       #}
 
 
       #if(count($errors)>0) {
-        #return redirect('/');
+      #  return redirect('/');
       #}
       #else {
 
-
+      #dump($request->old('interestType'));
 
       #get loan data from the form using request and format/calculate for display
       $loan=number_format(floatval($request->input('loan', null)), 2, '.', ',');
