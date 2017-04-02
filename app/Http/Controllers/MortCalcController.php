@@ -55,11 +55,11 @@ class MortCalcController extends Controller
       #if($_GET) {
 
 
-        $this->validate($request,[
-        'loan' => 'required|numeric',
-        'interestRate' => 'required|numeric',
+      $this->validate($request,[
+        'loan' => 'required|numeric|min:1|max:100000000',
+        'interestRate' => 'required|numeric|min:1|max:25',
         'interestType' => 'required|present',
-        'loanDuration' => 'required|not_in:0'
+        'loanDuration' => 'required|not_in:0|min:1|max:30'
       ]);
       #eturn redirect('/');
       #$old = session()->getOldInput();
@@ -85,7 +85,7 @@ class MortCalcController extends Controller
       #dump($request->old('interestType'));
 
       #get loan data from the form using request and format/calculate for display
-      $loan=number_format(floatval($request->input('loan', null)), 2, '.', ',');
+      $loan=$request->input('loan', null);
       $interestRate=Round($request->input('interestRate', null),3);
       $interestRateMonthly = Round($interestRate/12,3);
       $interestType=$request->Input('interestType');
@@ -96,14 +96,16 @@ class MortCalcController extends Controller
       if($interestRate>0 && $loanDuration>0 && $loan>0) {
       		#$interestRateMonthly = ($interestRate/100)/12;
       		#$timePeriodMonths = $timePeriodYears*12;
-      		$monthlyPayment = $loan*((($interestRate/100)/12)*(1 + (($interestRate/100)/12))**$loanMonths)/(((1 + (($interestRate/100)/12))**$loanMonths) - 1);
-          $monthlyPayment=number_format(floatval($monthlyPayment*1000), 2, '.', ',');
+      		#$monthlyPayment = $loan*((($interestRate/100)/12)*(1 + (($interestRate/100)/12))**$loanMonths)/(((1 + (($interestRate/100)/12))**$loanMonths) - 1);
+          $monthlyPayment = $loan*(($interestRate/100/12)*Pow((1+($interestRate/100/12)),$loanMonths))/(Pow((1+($interestRate/100/12)),$loanMonths)-1);
+          $monthlyPayment = number_format($monthlyPayment, 2, '.', ',');
+          $loan=number_format($loan, 2, '.', ',');
           #Reference: Learned and leveraged arithematic functions used at this website: http://php.net/manual/en/language.operators.arithmetic.php
           #Reference: Obatined Mortage Loan Payment formualae from this website: https://www.mtgprofessor.com/formulas.htm
           #Mortage Payment Formula: P = L[c(1 + c)^n]/[(1 + c)^n - 1]
       		#Where: L = Loan amount, c=monthly interest rate=Annual Interest Rate/12, P = Monthly payment, n = Month when the balance is paid in full, B = Remaining Balance
       	}
-        else {
+      else {
           $monthlyPayment=0;
         }
 
