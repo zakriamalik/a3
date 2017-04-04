@@ -54,13 +54,6 @@ class MortCalcController extends Controller
       #$errors=0;
       #if($_GET) {
 
-
-      $this->validate($request,[
-        'loan' => 'required|numeric|min:1|max:100000000',
-        'interestRate' => 'required|numeric|min:1|max:25',
-        'interestType' => 'required|present',
-        'loanDuration' => 'required|not_in:0|min:1|max:30'
-      ]);
       #eturn redirect('/');
       #$old = session()->getOldInput();
 
@@ -84,22 +77,25 @@ class MortCalcController extends Controller
 
       #dump($request->old('interestType'));
 
+      #access the request using this and apply laravel validation rules on inputs
+      $this->validate($request,[
+        'loan' => 'required|numeric|min:1|max:100000000',
+        'interestRate' => 'required|numeric|min:1|max:25',
+        'interestType' => 'required|present',
+        'loanDuration' => 'required|not_in:0|min:1|max:30'
+      ]);
+
       #get loan data from the form using request and format/calculate for display
       $loan=$request->input('loan', null);
-      $interestRate=Round($request->input('interestRate', null),3);
-      $interestRateMonthly = Round($interestRate/12,3);
+      $interestRate=$request->input('interestRate', null);
+      $interestRateMonthly = $interestRate/12;
       $interestType=$request->Input('interestType');
       $loanDuration=$request->input('loanDuration');
       $loanMonths=$loanDuration*12;
 
       #Logic: Formulae & Calculations used to determine mortage payments
       if($interestRate>0 && $loanDuration>0 && $loan>0) {
-      		#$interestRateMonthly = ($interestRate/100)/12;
-      		#$timePeriodMonths = $timePeriodYears*12;
-      		#$monthlyPayment = $loan*((($interestRate/100)/12)*(1 + (($interestRate/100)/12))**$loanMonths)/(((1 + (($interestRate/100)/12))**$loanMonths) - 1);
           $monthlyPayment = $loan*(($interestRate/100/12)*Pow((1+($interestRate/100/12)),$loanMonths))/(Pow((1+($interestRate/100/12)),$loanMonths)-1);
-          $monthlyPayment = number_format($monthlyPayment, 2, '.', ',');
-          $loan=number_format($loan, 2, '.', ',');
           #Reference: Learned and leveraged arithematic functions used at this website: http://php.net/manual/en/language.operators.arithmetic.php
           #Reference: Obatined Mortage Loan Payment formualae from this website: https://www.mtgprofessor.com/formulas.htm
           #Mortage Payment Formula: P = L[c(1 + c)^n]/[(1 + c)^n - 1]
@@ -109,17 +105,81 @@ class MortCalcController extends Controller
           $monthlyPayment=0;
         }
 
+        # variable declaration and calculations for the display file
+        $loanTbl = $loan;
+        $monthlyPaymentTbl = $monthlyPayment;
+        $interestTotal=0;
+        $interestRateAvg=0;
+
+        #amortization table array initalization
+        $array_pmtNo=[];
+        $array_loan=[];
+        $array_interestRateMonthly=[];
+        $array_monthlyPayment=[];
+        $array_interest=[];
+        $array_principal=[];
+        $array_loanBalance=[];
+
+        #loop to load up arrays for amortization table
+        for($i = 1; $i<=$loanMonths; $i++)
+        {
+          #if interest type is fixed, keep interest rate fixed, or else randomly fluctuate between +-1% of entered annual interest rate
+          if($interestType=='fixed'){
+              $interestRateMonthlyTbl=$interestRateMonthly;
+          }
+          else {
+              $interestRateMonthlyTbl=((rand($interestRate*100+100,$interestRate*100-100))/100/12);
+          }
+          #loading up arrays using loop variables
+          $array_pmtNo[$i]=$i;
+          $array_loan[$i]=$loanTbl;
+          $array_interestRateMonthly[$i]=Round($interestRateMonthlyTbl,3);
+          $array_monthlyPayment[$i]=Round($monthlyPaymentTbl,2);
+          $array_interest[$i]=Round(($loanTbl*$interestRateMonthlyTbl/100),2);
+          $array_principal[$i]=Round(($monthlyPaymentTbl-($loanTbl*$interestRateMonthlyTbl/100)),2);
+          $array_loanBalance[$i]=$loanTbl=Round(($loanTbl-($monthlyPaymentTbl-($loanTbl*$interestRateMonthlyTbl/100))),2);
+          $array_interestCumulative[$i]=$array_interest[$i]=Round(($loanTbl*$interestRateMonthlyTbl/100),2);
+          #loan total lifetime cost calculations within loop
+          $interestTotal=$interestTotal+Round(($loanTbl*$interestRateMonthlyTbl/100),2);
+          $interestRateAvg=$interestRateAvg+$interestRateMonthlyTbl;
+        }
+          #loan total lifetime cost calculations after loop
+          $interestRateAvg=$interestRateAvg/$loanMonths;
+          $loanTotalCost=$interestTotal+$loan;
+        #Reference 1: Formula for Monthly interest calculations: http://homeguides.sfgate.com/calculate-principal-interest-mortgage-2409.html
+        #Reference 2: Learned and leveraged this site to understand syntax for number format function. http://php.net/manual/en/function.number-format.php
+        #Reference 3: Learned how to access array in Laravel. http://stackoverflow.com/questions/36050266/laravel-accessing-array-data-in-view
+        #Reference 4: Learned how to pass array from controller to view in Laravel. http://stackoverflow.com/questions/26251108/form-passing-array-from-controller-to-view-php-laravel
+
+
       return view('index')->with([
-          'loanDisplay'=>$loan,
+          'loanDisplay'=>number_format($loan, 2, '.', ','),
           'interestRateDisplay'=>$interestRate,
-          'interestRateMonthlyDisplay'=>$interestRateMonthly,
+          'interestRateMonthlyDisplay'=>Round($interestRateMonthly,3),
           'interestTypeDisplay'=>$interestType,
           'loanDurationDisplay'=>$loanDuration,
           'loanMonths'=>$loanMonths,
-          'monthlyPaymentDisplay'=>$monthlyPayment
+          'monthlyPaymentDisplay'=>number_format($monthlyPayment, 2, '.', ','),
+          'loanTbl'=>$loanTbl,
+          'monthlyPaymentTbl'=>$monthlyPaymentTbl,
+          'array_pmtNo'=>$array_pmtNo,
+          'array_loan'=>$array_loan,
+          'array_interestRateMonthly'=>$array_interestRateMonthly,
+          'array_monthlyPayment'=>$array_monthlyPayment,
+          'array_interest'=>$array_interest,
+          'array_principal'=>$array_principal,
+          'array_loanBalance'=>$array_loanBalance,
+          'interestTotal'=>number_format($interestTotal, 2, '.', ','),
+          'interestRateAvg'=>Round($interestRateAvg, 3),
+          'loanTotalCost'=>number_format($loanTotalCost, 2, '.', ',')
         ]);
       #}
 
   }
+
+  #public function amortTbl() {
+  #    return view('index');
+  #}
+
 
 }
