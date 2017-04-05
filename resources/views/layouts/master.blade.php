@@ -9,7 +9,7 @@
     <!--referenced css style libs-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
-    <link rel="stylesheet" href="css/mortCalc.css">
+    <link rel="stylesheet" href="css/mortcalc.css">
         @stack('head')
 </head>
 <!--start of html body -->
