@@ -110,6 +110,7 @@ class MortCalcController extends Controller
         $monthlyPaymentTbl = $monthlyPayment;
         $interestTotal=0;
         $interestRateAvg=0;
+        #$date = date("Y-m-d");
 
         #amortization table array initalization
         $array_pmtNo=[];
@@ -119,6 +120,7 @@ class MortCalcController extends Controller
         $array_interest=[];
         $array_principal=[];
         $array_loanBalance=[];
+        $array_date=[];
 
         #loop to load up arrays for amortization table
         for($i = 1; $i<=$loanMonths; $i++)
@@ -142,6 +144,7 @@ class MortCalcController extends Controller
           #loan total lifetime cost calculations within loop
           $interestTotal=$interestTotal+Round(($loanTbl*$interestRateMonthlyTbl/100),2);
           $interestRateAvg=$interestRateAvg+$interestRateMonthlyTbl;
+          $array_date[$i] = date("M-Y", strtotime("+$i month"));
         }
           #loan total lifetime cost calculations after loop
           $interestRateAvg=$interestRateAvg/$loanMonths;
@@ -171,7 +174,8 @@ class MortCalcController extends Controller
           'array_loanBalance'=>$array_loanBalance,
           'interestTotal'=>number_format($interestTotal, 2, '.', ','),
           'interestRateAvg'=>Round($interestRateAvg, 3),
-          'loanTotalCost'=>number_format($loanTotalCost, 2, '.', ',')
+          'loanTotalCost'=>number_format($loanTotalCost, 2, '.', ','),
+          'array_date'=>$array_date
         ]);
       #}
 
