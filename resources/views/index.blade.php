@@ -50,13 +50,13 @@
         <!--Reference: Technique for reset button, got ideas from Piazza forum and this website:
         http://www.plus2net.com/html_tutorial/button-linking.php -->
   </form>
-    {{--{{dump($errors)}}; --}}
+
 @endsection
 
 
 @section('error_content')
     <!--check for validation errors, if found, display and hald calculations, code leveraged from class lecture notes -->
-    <h2>--------------------------------------</h2>
+    <h3>&nbsp;</h3>
     @if(count($errors) > 0)
       <h4>Inpur Errors found. See below: </h4>
         <ul>
@@ -70,10 +70,8 @@
 @endsection
 
 @section('mortcalc_content')
-
     <!--conditional display once GET happens; display of inputs, calculated status, and mortgage payment -->
-    {{--if the form is submitted, display results--}}
-    <h2>--------------------------------------</h2>
+    <h3>&nbsp;</h3>
     @if($_GET && count($errors) == 0)
       <hr></hr>
         <div>
@@ -90,7 +88,7 @@
 
 @section('loancost_content')
     <!--conditional display once GET happens check box is checked; display of loan lifetime cost summary -->
-    <h2>--------------------------------------</h2>
+    <h3>&nbsp;</h3>
     @if(!empty($_GET['show_loanCost']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>
@@ -106,7 +104,7 @@
 
 @section('amorttbl_content')
     <!--conditional display of mortgage amortization table, code stored on separate php files that has table display logic (soc)-->
-    <h2>--------------------------------------</h2>
+    <h3>&nbsp;</h3>
     @if(!empty($_GET['show_table']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>

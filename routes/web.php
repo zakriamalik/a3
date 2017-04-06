@@ -11,19 +11,11 @@
 |
 */
 
-#new app route
+# main app routes
 Route::get('/', 'MortCalcController@index');
 Route::get('/process', 'MortCalcController@process');
 
-
-#new routes
-#Route::get('/search', 'ProverbController@search');
-
-#Original Routes
-#Route::get('/', function () {
-#    return view('welcome');
-#});
-
+# conditional log viewer route based on app environment
 if(config('app.env')=='local'){
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 }

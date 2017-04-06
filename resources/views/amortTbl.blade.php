@@ -1,6 +1,7 @@
 <?php
-# Display file to show amortization table schedule
-#Reference: Got ideas about tables from this website and developed code: http://stackoverflow.com/questions/4746079/how-to-create-a-html-table-from-a-php-array
+   # Display file to show amortization table schedule
+   # Reference: Got ideas about tables from the followin website and developed code around it:
+   # http://stackoverflow.com/questions/4746079/how-to-create-a-html-table-from-a-php-array
 echo "<table id='tblAmortSchedule'>"; #Table declaration & generation
 echo "<tr>
           <th>Pmt No</th>
@@ -13,11 +14,9 @@ echo "<tr>
           <th>Loan Balance ($)</th>
        </tr>"; #Table header
 
-
-
- # Run a loop iterating from first monthly payment to the last (based on the number of months in the loan term)
+   # Run a loop iterating from first monthly payment to the last (based on the number of months in the loan term)
  for($j = 1; $j <= $loanMonths; $j++) {
-# Table rows 'tr' with columns 'td'. The table is populated dynamically as the loop runs from first payment to last
+   # Table rows 'tr' with columns 'td'. The table is populated dynamically as the loop runs from first payment to last
 echo "<tr> \n\r";
 echo "<td>".$array_pmtNo[$j]."</td>";
 echo "<td>".$array_date[$j]."</td>"; #see reference 3 below

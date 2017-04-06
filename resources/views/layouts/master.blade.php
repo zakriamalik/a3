@@ -13,39 +13,39 @@
         @stack('head')
 </head>
 <!--start of html body -->
-<body>
+  <body>
 
-    <header>
+      <header>
 
-    </header>
+      </header>
 
-    <section>
-        @yield('form_content')
-    </section>
+          <section>
+              @yield('form_content')
+          </section>
 
-    <section>
-        @yield('error_content')
-    </section>
+          <section>
+              @yield('error_content')
+          </section>
 
-    <section>
-        @yield('mortcalc_content')
-    </section>
+          <section>
+              @yield('mortcalc_content')
+          </section>
 
-    <section>
-        @yield('loancost_content')
-    </section>
+          <section>
+              @yield('loancost_content')
+          </section>
 
-    <section>
-        @yield('amorttbl_content')
-    </section>
+          <section>
+              @yield('amorttbl_content')
+          </section>
 
-    <footer>
+      <footer>
 
-    </footer>
+      </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     @stack('body')
 
-</body>
+  </body>
 </html>

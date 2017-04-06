@@ -2,14 +2,9 @@ body {
     padding:25px;
 }
 
-h2  {
-  color: white;
-}
-
 footer {
     margin-top:50px;
 }
-
 
 label, legend {
     display:inline  ;
@@ -35,5 +30,4 @@ input[type='checkbox'], input[type='radio'] {
     padding-left: 5px;
     padding-right: 5px;
     width: 800px;
-
 }
