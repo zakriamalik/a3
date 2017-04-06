@@ -109,6 +109,3 @@
         </div>
       @endif
 @endsection
-
-<body>
-</html>

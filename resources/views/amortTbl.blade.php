@@ -21,12 +21,12 @@ echo "<tr>
 echo "<tr> \n\r";
 echo "<td>".$array_pmtNo[$j]."</td>";
 echo "<td>".$array_date[$j]."</td>"; #see reference 3 below
-echo "<td>".$array_loan[$j]."</td>";
+echo "<td>".number_format($array_loan[$j], 2, '.', ',')."</td>";
 echo "<td>".$array_interestRateMonthly[$j]."</td>";
-echo "<td>".$array_monthlyPayment[$j]."</td>";
-echo "<td>".$array_interest[$j]."</td>"; #see reference 1 below
-echo "<td>".$array_principal[$j]."</td>";
-echo "<td>".$array_loanBalance[$j]."</td>"; #see reference 2 below
+echo "<td>".number_format($array_monthlyPayment[$j], 2, '.', ',')."</td>";
+echo "<td>".number_format($array_interest[$j], 2, '.', ',')."</td>"; #see reference 1 below
+echo "<td>".number_format($array_principal[$j], 2, '.', ',')."</td>";
+echo "<td>".number_format($array_loanBalance[$j], 2, '.', ',')."</td>"; #see reference 2 below
 echo "</tr>";
 }
 echo "</table>";
