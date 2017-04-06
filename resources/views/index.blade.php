@@ -11,13 +11,13 @@
   <Form method='GET' action='/process' id='formMort'>
         <!--text input box for loan amount entry -->
         <label for='loan'>Loan Amount:</label>
-        <input type='number' step='0.01' min='1' name='loan' value={{ isset($_GET['loan']) ? $_GET['loan'] : '' }} {{old('loan')}}><br/>
+        <input type='number' step='0.01' min='1' name='loan' value= {{ isset($_GET['loan']) ? $_GET['loan'] : '' }} {{old('loan')}} '{{''}}' ><br/>
         <!--Reference: Information leveraged to retain data in textboxes
          https://laracasts.com/discuss/channels/laravel/input-data-not-remaining-after-refresh-using-old?page=1-->
 
         <!--text input box for interest rate entry -->
         <label for='interestRate'>Interest Rate:</label>
-        <input type='number' step='0.001' min='1.01' name='interestRate' value={{ isset($_GET['interestRate']) ? $_GET['interestRate'] : '' }} {{old('interestRate')}}><br/>
+        <input type='number' step='0.001' min='1.01' name='interestRate' value= {{ isset($_GET['interestRate']) ? $_GET['interestRate'] : '' }} {{old('interestRate')}} '{{''}}' ><br/>
 
         <!--option radio buttons for type of interest rate -->
         <b>Interest Type:</b>
