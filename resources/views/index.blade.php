@@ -28,7 +28,7 @@
 
         <!--select downdown for duration of loan in years -->
         <label for='loanDuration'>Select loan duration</label>
-        <select name='loanDuration' id>
+        <select name='loanDuration' id='loanDuration'>
           <option value=''> Select one</option>
           <option value='15' {{ isset($_GET['loanDuration']) && $_GET['loanDuration']=='15' ? 'Selected' : '' }} {{old('loanDuration')=='15' ? 'Selected' : ''}} > 15 yrs</option>
           <option value='20' {{ isset($_GET['loanDuration']) && $_GET['loanDuration']=='20' ? 'Selected' : '' }} {{old('loanDuration')=='20' ? 'Selected' : ''}} > 20 yrs</option>
@@ -56,7 +56,7 @@
 
 @section('error_content')
     <!--check for validation errors, if found, display and hald calculations, code leveraged from class lecture notes -->
-    <h2></h2>
+    <h2>--------------------------------------</h2>
     @if(count($errors) > 0)
       <h4>Inpur Errors found. See below: </h4>
         <ul>
@@ -73,11 +73,11 @@
 
     <!--conditional display once GET happens; display of inputs, calculated status, and mortgage payment -->
     {{--if the form is submitted, display results--}}
-    <h2></h2>
+    <h2>--------------------------------------</h2>
     @if($_GET && count($errors) == 0)
       <hr></hr>
         <div>
-          <h2>Mortgage Information</h2>
+          <h3>Mortgage Information</h3>
           Loan Amount: ${{$loanDisplay}}<br/>
           Interest Rate (Annual): {{$interestRateDisplay}}%<br/>
           Interest Rate (Monthly): {{$interestRateMonthlyDisplay}}%<br/>
@@ -90,11 +90,11 @@
 
 @section('loancost_content')
     <!--conditional display once GET happens check box is checked; display of loan lifetime cost summary -->
-    <h2></h2>
+    <h2>--------------------------------------</h2>
     @if(!empty($_GET['show_loanCost']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>
-          <h2>Mortgage Lifetime Cost Summary</h2>
+          <h3>Mortgage Lifetime Cost Summary</h3>
           Loan Amount: ${{$loanDisplay}}<br/>
           Total Interest Paid: ${{$interestTotal}}<br/>
           Average Interest Rate (Monthly): {{$interestRateAvg}}%<br/>
@@ -106,11 +106,11 @@
 
 @section('amorttbl_content')
     <!--conditional display of mortgage amortization table, code stored on separate php files that has table display logic (soc)-->
-    <h2></h2>
+    <h2>--------------------------------------</h2>
     @if(!empty($_GET['show_table']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>
-          <h2>Mortgage Amortization Schedule</h2>
+          <h3>Mortgage Amortization Schedule</h3>
           @include('amortTbl');
         </div>
     @endif
