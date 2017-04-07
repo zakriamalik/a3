@@ -9,7 +9,7 @@
     <!--referenced css style libs-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
-    <link rel="stylesheet" href="css/mortcalc.css">
+    <link rel="stylesheet" href="/css/mortcalc.css">
         @stack('head')
 </head>
 <!--start of html body -->
@@ -40,7 +40,7 @@
           </section>
 
       <footer>
-
+              <p><a href="readme_app.md">Read Me</a></p>
       </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

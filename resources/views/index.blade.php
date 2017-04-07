@@ -38,9 +38,9 @@
           <option value='40' {{ isset($_GET['loanDuration']) && $_GET['loanDuration']=='40' ? 'Selected' : '' }} {{old('loanDuration')=='40' ? 'Selected' : ''}} > 40 yrs</option>
         </select><br/>
 
-        <!--checkbox to show or hide amortization table -->
-        <label><input type='checkbox' name='show_table' value='show_table' {{ isset($_GET['show_table']) ? 'checked' : ''}} {{old('show_table') ? 'checked' : ''}}> Display Amortization Table</label><br/>
+        <!--checkbox to show or hide loan cost and amortization table -->
         <label><input type='checkbox' name='show_loanCost' value='show_loanCost' {{ isset($_GET['show_loanCost']) ? 'checked' : ''}} {{old('show_loanCost') ? 'checked' : ''}}> Display Loan Cost Lifetime Summary</label><br/>
+        <label><input type='checkbox' name='show_table' value='show_table' {{ isset($_GET['show_table']) ? 'checked' : ''}} {{old('show_table') ? 'checked' : ''}}> Display Amortization Table</label><br/>
         <!--Reference: Technique used based on method used on this website:
         http://stackoverflow.com/questions/12541419/php-keep-checkbox-checked-after-submitting-form-->
 
@@ -56,7 +56,7 @@
 
 @section('error_content')
     <!--check for validation errors, if found, display and hald calculations, code leveraged from class lecture notes -->
-    <h3>&nbsp;</h3>
+    <h6>&nbsp;</h6>
     @if(count($errors) > 0)
       <h4>Inpur Errors found. See below: </h4>
         <ul>
@@ -71,7 +71,7 @@
 
 @section('mortcalc_content')
     <!--conditional display once GET happens; display of inputs, calculated status, and mortgage payment -->
-    <h3>&nbsp;</h3>
+    <h6>&nbsp;</h6>
     @if($_GET && count($errors) == 0)
       <hr></hr>
         <div>
@@ -88,7 +88,7 @@
 
 @section('loancost_content')
     <!--conditional display once GET happens check box is checked; display of loan lifetime cost summary -->
-    <h3>&nbsp;</h3>
+    <h6>&nbsp;</h6>
     @if(!empty($_GET['show_loanCost']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>
@@ -104,7 +104,7 @@
 
 @section('amorttbl_content')
     <!--conditional display of mortgage amortization table, code stored on separate php files that has table display logic (soc)-->
-    <h3>&nbsp;</h3>
+    <h6>&nbsp;</h6>
     @if(!empty($_GET['show_table']) && $_GET && count($errors) == 0)
       <hr></hr>
         <div>
