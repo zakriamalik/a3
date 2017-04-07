@@ -40,7 +40,7 @@
           </section>
 
       <footer>
-              <hr></hr>
+              <hr>
               <p><a href="/readme">Read Me</a></p>
       </footer>
 

@@ -73,7 +73,7 @@
     <!--conditional display once GET happens; display of inputs, calculated status, and mortgage payment -->
     <h6>&nbsp;</h6>
     @if($_GET && count($errors) == 0)
-      <hr></hr>
+      <hr>
         <div>
           <h3>Mortgage Information</h3>
           Loan Amount: ${{$loanDisplay}}<br/>
@@ -90,7 +90,7 @@
     <!--conditional display once GET happens check box is checked; display of loan lifetime cost summary -->
     <h6>&nbsp;</h6>
     @if(!empty($_GET['show_loanCost']) && $_GET && count($errors) == 0)
-      <hr></hr>
+      <hr>
         <div>
           <h3>Mortgage Lifetime Cost Summary</h3>
           Loan Amount: ${{$loanDisplay}}<br/>
@@ -106,7 +106,7 @@
     <!--conditional display of mortgage amortization table, code stored on separate php files that has table display logic (soc)-->
     <h6>&nbsp;</h6>
     @if(!empty($_GET['show_table']) && $_GET && count($errors) == 0)
-      <hr></hr>
+      <hr>
         <div>
           <h3>Mortgage Amortization Schedule</h3>
           @include('amortTbl');
