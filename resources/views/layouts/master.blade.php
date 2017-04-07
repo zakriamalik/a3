@@ -40,7 +40,8 @@
           </section>
 
       <footer>
-              <p><a href="readme_app.md">Read Me</a></p>
+              <hr></hr>
+              <p><a href="/readme">Read Me</a></p>
       </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

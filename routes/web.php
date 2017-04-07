@@ -14,6 +14,7 @@
 # main app routes
 Route::get('/', 'MortCalcController@index');
 Route::get('/process', 'MortCalcController@process');
+Route::get('/readme', 'MortCalcController@readme');
 
 # conditional log viewer route based on app environment
 if(config('app.env')=='local'){

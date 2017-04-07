@@ -12,6 +12,11 @@ class MortCalcController extends Controller
         return view('index');
   }
 
+  # readme view function
+  public function readme() {
+        return view('readme');
+  }
+
   # request processing function with validaiton and logic code
   public function process (Request $request) {
 
