@@ -58,7 +58,7 @@
     <!--check for validation errors, if found, display and hald calculations, code leveraged from class lecture notes -->
     <h6>&nbsp;</h6>
     @if(count($errors) > 0)
-      <h4>Inpur Errors found. See below: </h4>
+      <h4>Data entry error found. See below: </h4>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }} </li>
