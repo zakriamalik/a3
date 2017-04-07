@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-
+  Mortgage Payment Calculator
 @endsection
 
 @section('form_content')
