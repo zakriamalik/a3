@@ -24,3 +24,19 @@
   </p>
   <p><a href="/index.php">Mortgage Payment Calculator</a></p>
 @endsection
+
+@section('error_content')
+  <h6>&nbsp;</h6>
+@endsection
+
+@section('mortcalc_content')
+  <h6>&nbsp;</h6>
+@endsection
+
+@section('loancost_content')
+  <h6>&nbsp;</h6>
+@endsection
+
+@section('amorttbl_content')
+  <h6>&nbsp;</h6>
+@endsection
