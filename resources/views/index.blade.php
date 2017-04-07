@@ -80,7 +80,7 @@
           Interest Rate (Annual): {{$interestRateDisplay}}%<br/>
           Interest Rate (Monthly): {{$interestRateMonthlyDisplay}}%<br/>
           Interest Type: {{$interestTypeDisplay}}<br/>
-          Loan Duration : {{$loanDurationDisplay}} ({{$loanMonths}} months)<br/>
+          Loan Duration : {{$loanDurationDisplay}} yrs ({{$loanMonths}} months)<br/>
           <h4>Estimated Monthly Payment: ${{$monthlyPaymentDisplay}}</h4>
         </div>
     @endif
@@ -98,6 +98,7 @@
           Average Interest Rate (Monthly): {{$interestRateAvg}}%<br/>
           Total Loan Cost: ${{$loanTotalCost}}<br/>
           Number Payments : {{$loanMonths}}<br/>
+          From: {{$array_date[1]}} to {{$array_date[$loanMonths]}}
         </div>
     @endif
 @endsection
